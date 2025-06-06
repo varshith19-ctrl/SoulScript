@@ -12,6 +12,11 @@ const journalSchema = new mongoose.Schema(
     },
     aiTone: {
       type: String,
+    },
+     user: {
+      type: mongoose.Schema.Types.ObjectId,  // 👈 Reference type
+      ref: 'User',                           // 👈 Model being referenced
+      required: true,                        // 👈 Force each entry to belong to a user
     }
   },
   { timestamps: true }
