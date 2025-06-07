@@ -22,7 +22,7 @@ export default function JournalList({ entries, setEntries }) {
       {entries.map((entry) => (
         <div
           key={entry._id}
-          className="card bg-base-100 shadow-md p-4 border-[#c294c4] border-4"
+          className="card bg-[#667573] shadow-md p-4 border-[#c4e1d0] border-4"
         >
           <div className="flex justify-between items-center mb-2">
             <span className={`badge badge-${moodColor(entry.mood)} badge-lg`}>
@@ -30,12 +30,12 @@ export default function JournalList({ entries, setEntries }) {
             </span>
           </div>
           <p className="mb-2 p-4">{entry.text}</p>
-          <div className="badge badge-outline badge-info">
+          <div className="badge badge-outline badge-info ml-3">
             AI Tone: {entry.aiTone}
           </div>
           <button
             onClick={() => deleteEntry(entry._id)}
-            className="btn btn-sm btn-error"
+            className="btn btn-sm btn-error mt-2 bg-[#f5d2d2]"
           >
             Delete
           </button>

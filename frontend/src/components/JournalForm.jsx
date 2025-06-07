@@ -22,10 +22,10 @@ export default function JournalForm({ onNewEntry }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="card bg-base-100 shadow-lg p-4 mb-6 border-cyan-800 border-5">
+    <form onSubmit={handleSubmit} className="card bg-[#9ece9a] shadow-lg p-4 mb-6 border-cyan-800 border-5">
       <div className="form-control mb-4">
         <textarea
-          className="textarea textarea-bordered"
+          className="textarea textarea-bordered bg-[#c0797e]"
           rows="4"
           placeholder="What's on your mind?"
           value={text}

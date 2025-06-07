@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -7,13 +12,33 @@ import Home from "./pages/Home";
 import Entries from "./pages/Entries";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
-
+import CommunityBoard from "./pages/Community";
 function App() {
   const [entries, setEntries] = useState([]);
   const [showNavbar, setShowNavbar] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   // Fetch entries only if authenticated
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:5001/api/journal/checkAuth",
+          {
+            withCredentials: true,
+          }
+        );
+        if (res.data?.user) {
+          setIsAuthenticated(true);
+        }
+      } catch (err) {
+        setIsAuthenticated(false);
+      }
+    };
+
+    checkAuth();
+  }, []);
+
   useEffect(() => {
     if (isAuthenticated) {
       axios
@@ -33,26 +58,30 @@ function App() {
         className="min-h-screen bg-cover bg-center bg-no-repeat text-base-content"
         style={{ backgroundImage: "url('/forest.jpg')" }}
       >
-        {showNavbar && isAuthenticated && <Navbar />}
-
+        {showNavbar && isAuthenticated && (
+          <Navbar setIsAuthenticated={setIsAuthenticated} />
+        )}
         <div className="max-w-2xl mx-auto p-4">
           <Routes>
-
             {/* Public Routes */}
             <Route
               path="/login"
               element={
-                isAuthenticated
-                  ? <Navigate to="/" />
-                  : <Login setIsAuthenticated={setIsAuthenticated} />
+                isAuthenticated ? (
+                  <Navigate to="/" />
+                ) : (
+                  <Login setIsAuthenticated={setIsAuthenticated} />
+                )
               }
             />
             <Route
               path="/signup"
               element={
-                isAuthenticated
-                  ? <Navigate to="/login" />
-                  : <Signup setIsAuthenticated={setIsAuthenticated} />
+                isAuthenticated ? (
+                  <Navigate to="/login" />
+                ) : (
+                  <Signup setIsAuthenticated={setIsAuthenticated} />
+                )
               }
             />
 
@@ -60,17 +89,25 @@ function App() {
             <Route
               path="/create"
               element={
-                isAuthenticated
-                  ? <Home onNewEntry={addEntry} setShowNavbar={setShowNavbar} />
-                  : <Navigate to="/login" />
+                isAuthenticated ? (
+                  <Home onNewEntry={addEntry} setShowNavbar={setShowNavbar} />
+                ) : (
+                  <Navigate to="/login" />
+                )
               }
             />
             <Route
               path="/entries"
               element={
-                isAuthenticated
-                  ? <Entries entries={entries} setShowNavbar={setShowNavbar} setEntries={setEntries} />
-                  : <Navigate to="/login" />
+                isAuthenticated ? (
+                  <Entries
+                    entries={entries}
+                    setShowNavbar={setShowNavbar}
+                    setEntries={setEntries}
+                  />
+                ) : (
+                  <Navigate to="/login" />
+                )
               }
             />
 
@@ -78,9 +115,13 @@ function App() {
             <Route
               path="/"
               element={
-                isAuthenticated
-                  ? <Navigate to="/" />
-                  : <Navigate to="/login" />
+                isAuthenticated ? <Navigate to="/" /> : <Navigate to="/login" />
+              }
+            />
+            <Route
+              path="/community"
+              element={
+                isAuthenticated ? <CommunityBoard /> : <Navigate to="/login" />
               }
             />
           </Routes>
