@@ -13,11 +13,14 @@ import Entries from "./pages/Entries";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
 import CommunityBoard from "./pages/Community";
+import Quotation from "./components/Quotation";
 function App() {
   const [entries, setEntries] = useState([]);
   const [showNavbar, setShowNavbar] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
+  const [loading, setLoading] = useState(true);
+  const[showQuotation,setShowQuotation]=useState(true);
+  // todo : implement delete journal note
   // Fetch entries only if authenticated
   useEffect(() => {
     const checkAuth = async () => {
@@ -33,6 +36,8 @@ function App() {
         }
       } catch (err) {
         setIsAuthenticated(false);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -51,7 +56,16 @@ function App() {
   const addEntry = (entry) => {
     setEntries([entry, ...entries]);
   };
-
+  if (loading) {
+    return (
+      <div
+        className="min-h-screen bg-cover bg-center bg-no-repeat flex items-center justify-center"
+        style={{ backgroundImage: "url('/forest.jpg')" }}
+      >
+        <span className="text-xl font-semibold">Loading...</span>
+      </div>
+    );
+  }
   return (
     <Router>
       <div
@@ -61,6 +75,8 @@ function App() {
         {showNavbar && isAuthenticated && (
           <Navbar setIsAuthenticated={setIsAuthenticated} />
         )}
+        {showNavbar && isAuthenticated && showQuotation && <Quotation />}
+
         <div className="max-w-2xl mx-auto p-4">
           <Routes>
             {/* Public Routes */}

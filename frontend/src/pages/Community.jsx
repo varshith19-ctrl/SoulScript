@@ -8,10 +8,18 @@ export default function CommunityBoard() {
 
   // Load posts on mount
   useEffect(() => {
-    axios.get('http://localhost:5001/api/journal/readpost')
-      .then(res => setPosts(res.data))
-      .catch(() => alert('Failed to load community posts'));
-  }, []);
+  const fetchPosts = async () => {
+    try {
+      const res = await axios.get('http://localhost:5001/api/journal/readpost');
+      setPosts(res.data);
+    } catch (error) {
+      alert('Failed to load community posts');
+    }
+  };
+
+  fetchPosts();
+}, []);
+
 
   // Submit new post
   const submitPost = async (e) => {
