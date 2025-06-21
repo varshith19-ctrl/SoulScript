@@ -1,11 +1,13 @@
-
 import { pipeline } from '@xenova/transformers';
 
 let classifier;
 
 export async function initClassifier() {
   if (!classifier) {
-    classifier = await pipeline('text-classification', 'Xenova/distilbert-base-uncased-finetuned-sst-2-english');
+    classifier = await pipeline(
+      'text-classification',
+      'Xenova/bert-base-multilingual-uncased-sentiment'
+    );
   }
 }
 

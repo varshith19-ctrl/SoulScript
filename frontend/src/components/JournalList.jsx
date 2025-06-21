@@ -12,7 +12,7 @@ export default function JournalList({ entries, setEntries }) {
   const deleteEntry = async (id) => {
     try {
       await axios.delete(`http://localhost:5001/api/journal/${id}`);
-      setEntries(entries.filter((entry) => entry._id !== id));
+    setEntries((prevEntries) => prevEntries.filter((entry) => entry._id !== id));
     } catch (err) {
       console.error("Delete failed", err);
     }

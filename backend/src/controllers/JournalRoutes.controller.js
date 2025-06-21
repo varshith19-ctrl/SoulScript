@@ -116,14 +116,18 @@ export const readingPost = async (req, res) => {
 
 export const createPost=async (req,res) => {
     try {
-    const { text } = req.body;
+    const { text  } = req.body;
+     console.log("Received text:", text);
+    console.log("Authenticated user:", req.user);
     if (!text) return res.status(400).json({ msg: 'Text is required' });
 
-    const newPost = new CommunityPost({ text });
+    const newPost = new CommunityPost({ text ,user: req.user._id});
     await newPost.save();
 
     res.status(201).json(newPost);
   } catch (err) {
+    console.log("entered here ");
+    
     res.status(500).send('Server Error');
   }
 }

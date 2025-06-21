@@ -8,20 +8,21 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 import Navbar from "./components/Navbar";
+import Quotation from "./components/Quotation";
 import Home from "./pages/Home";
 import Entries from "./pages/Entries";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
 import CommunityBoard from "./pages/Community";
-import Quotation from "./components/Quotation";
+import WellnessSuggestion from "./pages/WellnessSuggestions";
 function App() {
   const [entries, setEntries] = useState([]);
   const [showNavbar, setShowNavbar] = useState(true);
+  const [showQuotation, setShowQuotation] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
-  const[showQuotation,setShowQuotation]=useState(true);
-  // todo : implement delete journal note
-  // Fetch entries only if authenticated
+
+  // 🔐 Check authentication status
   useEffect(() => {
     const checkAuth = async () => {
       try {
@@ -31,19 +32,17 @@ function App() {
             withCredentials: true,
           }
         );
-        if (res.data?.user) {
-          setIsAuthenticated(true);
-        }
-      } catch (err) {
+        if (res.data?.user) setIsAuthenticated(true);
+      } catch {
         setIsAuthenticated(false);
       } finally {
         setLoading(false);
       }
     };
-
     checkAuth();
   }, []);
 
+  // 📘 Load journal entries after authentication
   useEffect(() => {
     if (isAuthenticated) {
       axios
@@ -56,6 +55,7 @@ function App() {
   const addEntry = (entry) => {
     setEntries([entry, ...entries]);
   };
+
   if (loading) {
     return (
       <div
@@ -66,20 +66,21 @@ function App() {
       </div>
     );
   }
+
   return (
     <Router>
       <div
         className="min-h-screen bg-cover bg-center bg-no-repeat text-base-content"
         style={{ backgroundImage: "url('/forest.jpg')" }}
       >
-        {showNavbar && isAuthenticated && (
+        { isAuthenticated && (
           <Navbar setIsAuthenticated={setIsAuthenticated} />
         )}
-        {showNavbar && isAuthenticated && showQuotation && <Quotation />}
+        {showNavbar && isAuthenticated  && <Quotation />}
 
         <div className="max-w-2xl mx-auto p-4">
           <Routes>
-            {/* Public Routes */}
+            {/* 🔓 Public Routes */}
             <Route
               path="/login"
               element={
@@ -101,7 +102,7 @@ function App() {
               }
             />
 
-            {/* Protected Routes */}
+            {/* 🔐 Protected Routes */}
             <Route
               path="/create"
               element={
@@ -126,18 +127,24 @@ function App() {
                 )
               }
             />
+            <Route
+              path="/community"
+              element={
+                isAuthenticated ? <CommunityBoard setShowNavbar={setShowNavbar}/> : <Navigate to="/login" />
+              }
+            />
+             <Route
+              path="/wellness"
+              element={
+                isAuthenticated ? <WellnessSuggestion entries={entries} setShowNavbar={setShowNavbar}/> : <Navigate to="/login" />
+              }
+            />
 
-            {/* Default route */}
+            {/* 🌐 Default Route */}
             <Route
               path="/"
               element={
                 isAuthenticated ? <Navigate to="/" /> : <Navigate to="/login" />
-              }
-            />
-            <Route
-              path="/community"
-              element={
-                isAuthenticated ? <CommunityBoard /> : <Navigate to="/login" />
               }
             />
           </Routes>

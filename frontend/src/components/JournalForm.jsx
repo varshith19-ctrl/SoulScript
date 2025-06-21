@@ -22,10 +22,10 @@ export default function JournalForm({ onNewEntry }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="card bg-[#9ece9a] shadow-lg p-4 mb-6 border-cyan-800 border-5">
+    <form onSubmit={handleSubmit} className="card bg-[#0d0e3a] shadow-lg p-4 mb-2 sborder-5">
       <div className="form-control mb-4">
         <textarea
-          className="textarea textarea-bordered bg-[#c0797e]"
+          className="textarea textarea-bordered bg-[#755e5f]"
           rows="4"
           placeholder="What's on your mind?"
           value={text}
@@ -34,14 +34,14 @@ export default function JournalForm({ onNewEntry }) {
       </div>
       <div className="form-control mb-4">
         <input
-          className="input input-bordered"
+          className="input input-bordered bg-[#354a5f]"
           type="text"
           placeholder="Your Mood (e.g., Happy, Anxious)"
           value={mood}
           onChange={(e) => setMood(e.target.value)}
         />
       </div>
-      <button type="submit" className="btn btn-primary w-full">Submit Entry</button>
+      <button type="submit" className="btn bg-[#acc1d6] w-full">Submit Entry</button>
     </form>
   );
 }

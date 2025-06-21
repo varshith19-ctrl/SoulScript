@@ -19,7 +19,7 @@ const fetchPrompt = async () => {
 
 
   return (
-    <div className="mt-50">
+    <div className="mt-5 ">
       <button className="btn btn-outline btn-accent mb-4" onClick={fetchPrompt}>
         ✨ Suggest a Prompt
       </button>
