@@ -18,7 +18,7 @@ app.use(cookieParser());
 
 // ✅ Replace with your actual Vercel frontend URL
 app.use(cors({
-  origin: "https://your-frontend.vercel.app", // <- Replace with real Vercel domain
+  origin: "https://mental-health-journal-pi.vercel.app/", // <- Replace with real Vercel domain
   credentials: true,
 }));
 
