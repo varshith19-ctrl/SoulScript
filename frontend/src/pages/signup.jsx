@@ -11,7 +11,7 @@ function Signup({ setIsAuthenticated }) {
     e.preventDefault();
     setError("");
     try {
-      await axios.post("http://localhost:5001/api/journal/register", form);
+      await axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASE_URL}/api/journal/register`, form);
       
       navigate("/login");
     } catch (err) {

@@ -11,7 +11,7 @@ function Login({ setIsAuthenticated ,setLoginPage}) {
     e.preventDefault();
     setError("");
     try {
-      await axios.post("http://localhost:5001/api/journal/login", form);
+      await axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASE_URL}/api/journal/login`, form);
       setIsAuthenticated(true);
       setLoginPage(false)
       navigate("/");

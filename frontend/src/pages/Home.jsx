@@ -10,7 +10,7 @@ export default function Home({ onNewEntry, setShowNavbar }) {
 
 const fetchPrompt = async () => {
   try {
-    const res = await axios.get("http://localhost:5001/api/journal/prompt", { withCredentials: true });
+    const res = await axios.get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASE_URL}/api/journal/prompt`, { withCredentials: true });
     setPrompt(res.data.prompt);
   } catch (err) {
     console.error("Prompt fetch failed:", err.response?.data || err.message);

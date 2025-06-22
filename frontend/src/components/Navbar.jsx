@@ -6,7 +6,7 @@ export default function Navbar({ setIsAuthenticated }) {
 
   const handleLogout = async () => {
     try {
-      await axios.post("http://localhost:5001/api/journal/logout", {
+      await axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASE_URL}/api/journal/logout`, {
         withCredentials: true,
       });
       setIsAuthenticated(false); // 🔥 Reset login state

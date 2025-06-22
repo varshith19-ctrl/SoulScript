@@ -11,7 +11,7 @@ const moodColor = (mood) => {
 export default function JournalList({ entries, setEntries }) {
   const deleteEntry = async (id) => {
     try {
-      await axios.delete(`http://localhost:5001/api/journal/${id}`);
+      await axios.delete(`${import.meta.env.VITE_REACT_APP_BACKEND_BASE_URL}/api/journal/${id}`);
     setEntries((prevEntries) => prevEntries.filter((entry) => entry._id !== id));
     } catch (err) {
       console.error("Delete failed", err);

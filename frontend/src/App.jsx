@@ -27,7 +27,7 @@ function App() {
     const checkAuth = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:5001/api/journal/checkAuth",
+          `${import.meta.env.VITE_REACT_APP_BACKEND_BASE_URL}/api/journal/checkAuth`,
           {
             withCredentials: true,
           }
@@ -46,7 +46,7 @@ function App() {
   useEffect(() => {
     if (isAuthenticated) {
       axios
-        .get("http://localhost:5001/api/journal")
+        .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASE_URL}/api/journal`)
         .then((res) => setEntries(res.data))
         .catch((err) => console.error(err));
     }

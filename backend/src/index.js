@@ -1,42 +1,43 @@
-import dotenv from "dotenv"
-dotenv.config()
+import dotenv from "dotenv";
+dotenv.config();
 
-import express from "express"
+import express from "express";
+import cors from "cors";
+import path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+import cookieParser from "cookie-parser";
 
-import cors from "cors"
+import { connectDB } from "./configurations/connectDb.js";
+import journalRoutes from "./routes/journalRoutes.js";
 
-import path from "path"
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+const app = express();
 
-import cookieParser from "cookie-parser"
+// Middleware
+app.use(cookieParser());
 
-import { connectDB } from "./configurations/connectDb.js"
-import journalRoutes from "./routes/journalRoutes.js"
-import { log } from "console"
-const app=express()
-app.use(cookieParser())
+// ✅ Replace with your actual Vercel frontend URL
 app.use(cors({
-    origin:"http://localhost:5173",
-    credentials: true
-}))
+  origin: "https://your-frontend.vercel.app", // <- Replace with real Vercel domain
+  credentials: true,
+}));
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-app.use(express.static(path.join(__dirname, 'public')))
-app.use(express.json())
-app.use('/api/journal',journalRoutes)
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
 
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'));
+// Optional: Serve static files if you have image uploads, etc.
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.json());
+
+// Routes
+app.use('/api/journal', journalRoutes);
+
+// ✅ DO NOT serve frontend from here — Vercel handles that
+
+// Connect to DB and start server
+connectDB().then(() => {
+  const PORT = process.env.PORT || 5001;
+  app.listen(PORT, () => {
+    console.log(`🚀 Server is running on port ${PORT}`);
   });
-}
-
-
-connectDB().then(()=>{
-app.listen(process.env.PORT,()=>{
-console.log(`🚀 server is running on port ${process.env.PORT}`);
-
-})
-})
+});

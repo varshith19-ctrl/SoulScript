@@ -11,7 +11,7 @@ export default function JournalForm({ onNewEntry }) {
     if (!text || !mood) return alert('Please fill in both mood and text');
 
     try {
-      const res = await axios.post('http://localhost:5001/api/journal', { text, mood });
+      const res = await axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASE_URL}/api/journal`, { text, mood });
       onNewEntry(res.data);
       setText('');
       setMood('');

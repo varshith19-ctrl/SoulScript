@@ -11,7 +11,7 @@ export default function CommunityBoard({ setShowNavbar }) {
     const fetchPosts = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:5001/api/journal/readpost"
+          `${import.meta.env.VITE_REACT_APP_BACKEND_BASE_URL}/api/journal/readpost`
         );
         setPosts(res.data);
       } catch (error) {
@@ -32,7 +32,7 @@ export default function CommunityBoard({ setShowNavbar }) {
     setLoading(true);
     try {
       const res = await axios.post(
-        "http://localhost:5001/api/journal/createpost",
+        `${import.meta.env.VITE_REACT_APP_BACKEND_BASE_URL}/api/journal/createpost`,
         { text }
       );
       setPosts([res.data, ...posts]);
@@ -46,7 +46,7 @@ export default function CommunityBoard({ setShowNavbar }) {
   const handleDelete = async (postId) => {
     try {
       await axios.delete(
-        `http://localhost:5001/api/journal/deletepost/${postId}`
+        `${import.meta.env.VITE_REACT_APP_BACKEND_BASE_URL}/api/journal/deletepost/${postId}`
       );
       setPosts(posts.filter((post) => post._id !== postId));
     } catch (err) {
