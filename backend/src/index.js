@@ -16,11 +16,12 @@ const app = express();
 // Middleware
 app.use(cookieParser());
 
-// ✅ Replace with your actual Vercel frontend URL
+//  Replace with  actual Vercel frontend URL
 app.use(cors({
-  origin: "https://mental-health-journal-pi.vercel.app", // <- Replace with real Vercel domain
+  origin: "http://localhost:5173", // <- Replace with real Vercel domain
   credentials: true,
 }));
+// "https://mental-health-journal-pi.vercel.app"||
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -32,7 +33,7 @@ app.use(express.json());
 // Routes
 app.use('/api/journal', journalRoutes);
 
-// ✅ DO NOT serve frontend from here — Vercel handles that
+//  DO NOT serve frontend from here — Vercel handles that
 
 // Connect to DB and start server
 connectDB().then(() => {

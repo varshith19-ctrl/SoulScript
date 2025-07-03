@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 export default function CommunityBoard({ setShowNavbar }) {
   const [posts, setPosts] = useState([]);
@@ -21,8 +22,8 @@ export default function CommunityBoard({ setShowNavbar }) {
     
 
     fetchPosts();
-    setShowNavbar(false); // ✅ hide navbar on this page
-    return () => setShowNavbar(true); // ✅ show navbar again when leaving
+    setShowNavbar(false); //  hide navbar on this page
+    return () => setShowNavbar(true); //  show navbar again when leaving
   }, []);
 
   // Submit new post
@@ -37,8 +38,10 @@ export default function CommunityBoard({ setShowNavbar }) {
       );
       setPosts([res.data, ...posts]);
       setText("");
+      toast.success("Post submitted successfully");
     } catch {
       alert("Failed to submit post");
+      toast.error("Something went wrong while submitting your post");
     } finally {
       setLoading(false);
     }
@@ -82,9 +85,9 @@ export default function CommunityBoard({ setShowNavbar }) {
           <p className="italic text-gray-500">No posts yet. Be the first!</p>
         )}
         {posts.map((post) => (
-          <div key={post._id} className="p-4 bg-[#6b8cae] rounded-lg shadow">
+          <div key={post._id} className="p-4 bg-[#4f85bb] rounded-lg shadow">
             <p className="mb-2">{post.text}</p>
-            <small className="text-gray-400">
+            <small className="text-[#f5faff]">
               {new Date(post.createdAt).toLocaleString()}
             </small>
           </div>

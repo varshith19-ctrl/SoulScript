@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function Login({ setIsAuthenticated ,setLoginPage}) {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -13,11 +14,15 @@ function Login({ setIsAuthenticated ,setLoginPage}) {
     try {
       await axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASE_URL}/api/journal/login`, form);
       setIsAuthenticated(true);
+      toast.success("Login successful");
       setLoginPage(false)
+      
       navigate("/");
+      
+
     } catch (err) {
-      setError(err.response?.data?.error || "Login failed");
-    }
+      setError(err.response?.data?.error );
+      toast.error("something went wrong while logging in "); }
   };
 
   return (
@@ -54,6 +59,7 @@ function Login({ setIsAuthenticated ,setLoginPage}) {
           </a>
         </p>
       </form>
+     
     
   );
 }

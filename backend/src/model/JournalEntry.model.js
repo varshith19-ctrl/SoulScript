@@ -14,9 +14,9 @@ const journalSchema = new mongoose.Schema(
       type: String,
     },
      user: {
-      type: mongoose.Schema.Types.ObjectId,  // 👈 Reference type
-      ref: 'User',                           // 👈 Model being referenced
-      required: true,                        // 👈 Force each entry to belong to a user
+      type: mongoose.Schema.Types.ObjectId,  
+      ref: 'User',                           
+      required: true,                        
     }
   },
   { timestamps: true }

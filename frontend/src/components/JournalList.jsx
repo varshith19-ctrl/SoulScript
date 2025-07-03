@@ -1,4 +1,5 @@
 import axios from "axios";
+import toast from "react-hot-toast";
 const moodColor = (mood) => {
   const lower = mood.toLowerCase();
   if (lower.includes("happy") || lower.includes("joy")) return "success";
@@ -13,8 +14,10 @@ export default function JournalList({ entries, setEntries }) {
     try {
       await axios.delete(`${import.meta.env.VITE_REACT_APP_BACKEND_BASE_URL}/api/journal/${id}`);
     setEntries((prevEntries) => prevEntries.filter((entry) => entry._id !== id));
+    toast.success("Entry deleted successfully");
     } catch (err) {
       console.error("Delete failed", err);
+      toast.error("Failed to delete entry");
     }
   };
   return (

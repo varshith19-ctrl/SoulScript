@@ -15,7 +15,7 @@ import {
 
 const router = express.Router();
 
-// 🔐 Authentication Routes
+//  Authentication Routes
 router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.post("/logout", logout);
@@ -23,15 +23,15 @@ router.get("/checkAuth", verifyToken, (req, res) => {
   res.json({ user: req.user });
 });
 
-// 📘 Journal Entry Routes
+//  Journal Entry Routes
 router.post("/", verifyToken, creatingEntry);
 router.get("/", verifyToken, readingEntry);
 router.delete("/:id", verifyToken,deletebyID);
 
-// 💡 Prompt Route
+//  Prompt Route
 router.get("/prompt", verifyToken, questionPrompts);
 
-// 🌐 Community Post Routes
+//  Community Post Routes
 router.get("/readpost", verifyToken, readingPost);
 router.post("/createpost", verifyToken, createPost);
 router.delete("/deletepost/:id", verifyToken, deletePost);

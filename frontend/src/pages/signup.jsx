@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function Signup({ setIsAuthenticated }) {
   const [form, setForm] = useState({ username: "", email: "", password: "" });
@@ -12,10 +13,11 @@ function Signup({ setIsAuthenticated }) {
     setError("");
     try {
       await axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASE_URL}/api/journal/register`, form);
-      
+      toast.success("Signup successful");
       navigate("/login");
     } catch (err) {
       setError(err.response?.data?.error || "Signup failed");
+      toast.error("Something went wrong while signing up");
     }
   };
 
