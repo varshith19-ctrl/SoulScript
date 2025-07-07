@@ -74,11 +74,21 @@ npm run dev
 
 
 # 🤝 Contribution Guide for SoulScript 🧘‍♀️
-
 Thank you for your interest in contributing to **SoulScript** — a mental journaling app powered by AI!  
 We appreciate your effort to improve the app and welcome all kinds of contributions: bug fixes, new features, documentation improvements, or performance tweaks.
 
 Please follow this guide to contribute effectively and safely.
+
+✅ Contribution Rules
+Do not push directly to main
+
+Always use branches for your changes
+
+Submit one feature or fix per PR
+
+Be responsive to review feedback
+
+Keep changes focused and well-tested
 
 ---
 
