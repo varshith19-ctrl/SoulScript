@@ -73,5 +73,103 @@ cd frontend
 npm run dev
 
 
+# 🤝 Contribution Guide for SoulScript 🧘‍♀️
+
+Thank you for your interest in contributing to **SoulScript** — a mental journaling app powered by AI!  
+We appreciate your effort to improve the app and welcome all kinds of contributions: bug fixes, new features, documentation improvements, or performance tweaks.
+
+Please follow this guide to contribute effectively and safely.
+
+---
+
+## 📋 Prerequisites
+
+Before contributing, ensure you have the following installed:
+
+- ✅ Git
+- ✅ Node.js and npm
+- ✅ A GitHub account
+
+---
+
+## 🧭 Step-by-Step Contribution Workflow
+
+### 1️⃣ Fork the Repository
+
+Go to the [SoulScript Repo](https://github.com/varshith19-ctrl/SoulScript) and click the **“Fork”** button in the top-right corner.  
+This will create a copy of the repository under your GitHub account.
+
+---
+
+### 2️⃣ Clone Your Fork
+
+Clone your forked repo to your local machine:
+
+```bash
+git clone https://github.com/your-username/SoulScript.git
+cd SoulScript
+
+### 3️⃣ Create a New Branch
+
+git checkout -b feature/your-branch-name
+
+
+### 4️⃣ Install Project Dependencies
+
+cd frontend
+npm install
+
+cd ../backend
+npm install
+
+
+### 5️⃣ Set Up Environment Variables
+
+ already mentioned at the beginning check it out.
+
+### 6️⃣ Make Your Changes
+
+Follow the existing folder structure and code style
+
+Add comments where needed
+
+If applicable, update documentation or README
+
+### 7️⃣ Commit Your Changes
+
+git add .
+git commit -m "ex:- Add: new animated mood ring on dashboard"
+
+### 8️⃣ Push to Your Fork
+
+git push origin feature/your-branch-name
+
+### 9️⃣ Open a Pull Request
+
+Go to your forked repo on GitHub
+
+Click "Compare & Pull Request"
+
+Set:
+
+Base repository: varshith19-ctrl/SoulScript
+
+Base branch: main
+
+Head branch: your feature branch
+
+Add a descriptive title and explanation
+
+Click "Create Pull Request"
+
+🎉 You're done! Now wait for review.
+
+🙌 Thank You!
+
+Every contribution counts. Whether you write code, improve docs, or open an issue — you’re helping make SoulScript better for everyone.
+
+Made with 💚 mindfulness and 🧠 AI by Varshith
+
+
  
 
