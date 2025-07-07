@@ -29,7 +29,7 @@ function Login({ setIsAuthenticated ,setLoginPage}) {
     
       <form
         onSubmit={handleSubmit}
-        className=" p-8 rounded-xl shadow-lg w-full max-w-sm space-y-4 mt-50 ml-33 bg-[#6d86b6]"
+        className=" p-8 rounded-xl shadow-lg w-full max-w-sm space-y-4 mt-50 ml-33 bg-linear-to-r from-grey-500 to-violet-400"
       >
         <h2 className="text-xl font-bold text-center">Login</h2>
         {error && <div className="text-error">{error}</div>}
@@ -49,7 +49,7 @@ function Login({ setIsAuthenticated ,setLoginPage}) {
           value={form.password}
           onChange={(e) => setForm({ ...form, password: e.target.value })}
         />
-        <button type="submit" className="btn btn-primary w-full bg-[#4b694c]">
+        <button type="submit" className="btn btn-primary w-full bg-linear-to-r from-yellow-500 to-red-400">
           Login
         </button>
         <p className="text-sm text-center">

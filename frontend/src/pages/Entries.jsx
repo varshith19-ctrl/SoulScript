@@ -1,8 +1,8 @@
-import { useEffect, useMemo, lazy, Suspense, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const JournalList = lazy(() => import("../components/JournalList"));
-const MoodChart = lazy(() => import("../components/Moodchart"));
+import JournalList from "../components/JournalList";
+import MoodChart from "../components/Moodchart";
 
 const moods = ["All", "Happy", "Sad", "Neutral", "Angry", "Excited"];
 
@@ -14,21 +14,19 @@ export default function Entries({ entries, setShowNavbar, setEntries }) {
     return () => setShowNavbar(true);
   }, []);
 
-  // Use useMemo to compute filtered entries only when filteredMood or entries change
-  // This avoids unnecessary recalculations and re-renders caused by storing filteredEntries in state
-  const filteredEntries = useMemo(() => {
-    if (filteredMood === "All") return entries;
-    const mood = filteredMood.toLowerCase();
-    return entries.filter((e) => e.mood === mood);
-  }, [filteredMood, entries]);
+  // Filter entries directly without useMemo
+  const filteredEntries =
+    filteredMood === "All"
+      ? entries
+      : entries.filter((e) => e.mood === filteredMood.toLowerCase());
 
   return (
     <div className="min-h-screen px-4 pb-10">
-      <h2 className="text-2xl font-bold mb-2 text-[#916570] text-center">
+      <h2 className="text-2xl font-bold mb-2 text-[#ec6e8d] text-center">
         Your Journal Entries
       </h2>
 
-      {/* Filter buttons */}
+      {/* Mood filter buttons */}
       <div className="flex flex-wrap justify-center gap-2 mb-6">
         {moods.map((mood) => (
           <button
@@ -43,11 +41,10 @@ export default function Entries({ entries, setShowNavbar, setEntries }) {
         ))}
       </div>
 
-      {/* Lazy load MoodChart once with simple fallback */}
-      <Suspense fallback={<div className="h-32 mb-4 bg-gray-100 animate-pulse rounded-md"></div>}>
-        <MoodChart entries={entries} />
-      </Suspense>
+      {/* Mood Chart */}
+      <MoodChart entries={entries} />
 
+      {/* Journal Entries */}
       <AnimatePresence mode="wait">
         {filteredEntries.length === 0 ? (
           <motion.p
@@ -60,19 +57,17 @@ export default function Entries({ entries, setShowNavbar, setEntries }) {
             No entries for this mood.
           </motion.p>
         ) : (
-          // Lazy load JournalList once for all filtered entries instead of per entry
-          // This reduces overhead and avoids multiple fallback placeholders
-          <Suspense fallback={<div className="h-20 bg-gray-100 rounded-md animate-pulse"></div>}>
-            <motion.div
-              key="journal-list"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.25 }}
-            >
+          <motion.div
+            key="journal-list"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.25 }}
+          >
+            <div className="flex flex-col">
               <JournalList entries={filteredEntries} setEntries={setEntries} />
-            </motion.div>
-          </Suspense>
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </div>

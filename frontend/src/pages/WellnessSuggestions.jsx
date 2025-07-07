@@ -32,9 +32,9 @@ export default function WellnessSuggestion({ entries, setShowNavbar }) {
   const suggestion = getSuggestion(avgStars);
 
   return (
-    <div className="bg-[#1234] p-4 shadow-lg rounded-lg my-6 mt-20 ">
-      <h3 className="text-lg font-bold text-[#daa2b0] mb-2">
-        🧘 Mental Wellness Suggestion
+    <div className="bg-linear-to-r from-[#123] to-[#113151] p-4 shadow-lg rounded-lg my-6 mt-20 ">
+      <h3 className="bg-linear-to-r from-pink-500 to-violet-500 bg-clip-text text-2xl text-transparent mb-2">
+         Mental Wellness Suggestion
       </h3>
        <h4 className="text-md md:text-lg font-semibold text-[#abc77c] mb-2">
         {suggestion.title}

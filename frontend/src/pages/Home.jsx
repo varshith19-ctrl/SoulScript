@@ -20,9 +20,12 @@ const fetchPrompt = async () => {
 
   return (
     <div className="mt-5 ">
-      <button className="btn btn-outline btn-accent mb-4" onClick={fetchPrompt}>
-        ✨ Suggest a Prompt
-      </button>
+      <div className="tooltip ">
+  <div className="tooltip-content bg-[#c2d485]">
+    <div className="animate-bounce text-[#155e0e] -rotate-10 text-2xl">Just Click it!</div>
+  </div>
+  <button className="btn bg-linear-to-r from-[#80348b] to-[#3d4098]"  onClick={fetchPrompt}>Suggest a Prompt</button>
+</div>
       <p className="text-sm italic mb-2 text-[#ffffff]">{prompt}</p>
 
       <JournalForm onNewEntry={onNewEntry} />

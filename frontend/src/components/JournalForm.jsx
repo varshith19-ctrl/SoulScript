@@ -28,7 +28,7 @@ export default function JournalForm({ onNewEntry }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="card bg-[#1e2a38] shadow-md p-4 mb-4 rounded-xl w-full max-w-[600px] mx-auto min-h-[260px] transition-all duration-200"
+      className="card bg-linear-to-r from-grey-600 to-grey-400 shadow-md p-4 mb-4 rounded-xl w-full max-w-[600px] mx-auto min-h-[260px] transition-all duration-200"
     >
       {/* Set minimum height to prevent layout shifts during loading */}
       {/* Use max-width and mx-auto to center the form horizontally */}
@@ -36,7 +36,7 @@ export default function JournalForm({ onNewEntry }) {
 
       <div className="form-control mb-3">
         <textarea
-          className="textarea textarea-bordered bg-[#2f3e4d] text-white placeholder-gray-400 focus:outline-none focus:ring focus:ring-[#7db3e1] w-full resize-none text-sm min-h-[100px]"
+          className="textarea textarea-bordered bg-linear-to-r from-[#8b6dc6] to-[#150179] text-white placeholder-gray-400 focus:outline-none focus:ring  w-full resize-none text-sm min-h-[100px]"
           placeholder="What's on your mind?"
           value={text}
           onChange={(e) => setText(e.target.value)}
@@ -49,7 +49,7 @@ export default function JournalForm({ onNewEntry }) {
 
       <div className="form-control mb-3">
         <input
-          className="input input-bordered bg-[#3e556b] text-white placeholder-gray-400 focus:outline-none focus:ring focus:ring-[#7db3e1] w-full text-sm"
+          className="input input-bordered  bg-linear-to-r from-[#8b6dc6] to-[#150179] text-white placeholder-gray-400 focus:outline-none focus:ring focus:ring-[#7db3e1] w-full text-sm"
           type="text"
           placeholder="Your Mood (e.g., Happy, Anxious)"
           value={mood}
@@ -62,7 +62,7 @@ export default function JournalForm({ onNewEntry }) {
 
       <button
         type="submit"
-        className="btn bg-[#7db3e1] hover:bg-[#93c6f2] text-[#0d1b2a] w-full font-medium text-sm"
+        className="btn  bg-linear-to-r from-[#8b6dc6] to-[#150179] hover:bg-[#93c6f2] text-[#a9adb1] w-full font-medium text-sm"
       >
         Submit Entry
       </button>

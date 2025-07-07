@@ -61,11 +61,8 @@ function App() {
 
   if (loading) {
     return (
-      <div
-        className="min-h-screen bg-cover bg-center bg-no-repeat flex items-center justify-center"
-        
-      >
-        <span className="text-xl font-semibold">Loading...</span>
+      <div className="min-h-screen bg-cover bg-center bg-no-repeat flex items-center justify-center">
+        <span className="loading loading-infinity loading-xl"></span>
       </div>
     );
   }
@@ -74,8 +71,8 @@ function App() {
     <>
       <Router>
         <div
-          className="min-h-screen bg-cover bg-center bg-no-repeat text-base-content"
-          style={{ backgroundImage: "url('/newbackground.jpg')" }}
+          className="min-h-screen bg-cover bg-center bg-no-repeat text-base-content bg-fixed"
+          style={{ backgroundImage: "url('/moutain.jpg')" }}
         >
           {isAuthenticated && (
             <Navbar setIsAuthenticated={setIsAuthenticated} />

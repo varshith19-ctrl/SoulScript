@@ -37,7 +37,7 @@ export default function MoodChart({ entries }) {
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, type: 'spring' }}
-      className="card bg-[#bac6d2] shadow-xl p-4"
+      className="card bg-linear-to-r from-[#160c1f] to-[rgb(77,79,146)] shadow-xl p-4"
     >
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-semibold text-center">🧘 Mood Over Time</h2>
