@@ -50,18 +50,6 @@ export default function CommunityBoard({ setShowNavbar }) {
       setLoading(false);
     }
   };
-  const handleDelete = async (postId) => {
-    try {
-      await axios.delete(
-        `${
-          import.meta.env.VITE_REACT_APP_BACKEND_BASE_URL
-        }/api/journal/deletepost/${postId}`
-      );
-      setPosts(posts.filter((post) => post._id !== postId));
-    } catch (err) {
-      console.error("Failed to delete post");
-    }
-  };
   return (
     <>
       <div className="max-w-xl mx-auto p-4">
@@ -93,11 +81,11 @@ export default function CommunityBoard({ setShowNavbar }) {
           )}
         </div>
       </div>
-      {posts.map((post) => (
-        
+      <div>
+        {posts.map((post) => (
           <CommunityCard key={post._id} post={post} />
-        
-      ))}
+        ))}
+      </div>
     </>
   );
 }
