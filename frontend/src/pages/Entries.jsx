@@ -4,7 +4,31 @@ import { motion, AnimatePresence } from "framer-motion";
 import JournalList from "../components/JournalList";
 import MoodChart from "../components/Moodchart";
 
-const moods = ["All", "Happy", "Sad", "Neutral", "Angry", "Excited"];
+const moods = [
+  "All",
+  "depressed",
+  "sad",
+  "anxious",
+  "angry",
+  "confused",
+  "tired",
+  "bored",
+  "neutral",
+  "calm",
+  "okay",
+  "content",
+  "grateful",
+  "relaxed",
+  "motivated",
+  "focused",
+  "excited",
+  "hopeful",
+  "happy",
+  "cheerful",
+  "joyful",
+  "inspired",
+  "lonely"
+];
 
 export default function Entries({ entries, setShowNavbar, setEntries }) {
   const [filteredMood, setFilteredMood] = useState("All");
@@ -22,7 +46,7 @@ export default function Entries({ entries, setShowNavbar, setEntries }) {
 
   return (
     <div className="min-h-screen px-4 pb-10">
-      <h2 className="text-2xl font-bold mb-2 text-[#ec6e8d] text-center">
+      <h2 className="text-2xl font-bold mb-2 bg-linear-to-r from-[#e1a0e7] to-[#e7e8f3] bg-clip-text text-transparent text-center animate-bounce">
         Your Journal Entries
       </h2>
 
@@ -31,7 +55,7 @@ export default function Entries({ entries, setShowNavbar, setEntries }) {
         {moods.map((mood) => (
           <button
             key={mood}
-            className={`btn btn-sm transition-all duration-200 ${
+            className={`btn btn-sm transition-all duration-200 text-[#ffffff] bg-[#123] ${
               filteredMood === mood ? "btn-primary" : "btn-outline"
             }`}
             onClick={() => setFilteredMood(mood)}
@@ -64,7 +88,7 @@ export default function Entries({ entries, setShowNavbar, setEntries }) {
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.25 }}
           >
-            <div className="flex flex-col">
+            <div className="flex flex-col mt-2">
               <JournalList entries={filteredEntries} setEntries={setEntries} />
             </div>
           </motion.div>

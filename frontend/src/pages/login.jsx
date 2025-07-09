@@ -22,7 +22,8 @@ function Login({ setIsAuthenticated ,setLoginPage}) {
 
     } catch (err) {
       setError(err.response?.data?.error );
-      toast.error("something went wrong while logging in "); }
+      // toast.error("something went wrong while logging in "); 
+    }
   };
 
   return (

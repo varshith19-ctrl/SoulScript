@@ -21,7 +21,7 @@ export default function Navbar({ setIsAuthenticated }) {
   return (
     <div className="navbar bg-linear-to-r from-[#194242] to-[rgb(4,6,54)] shadow mb-4">
       <div className="flex-1">
-        <span className="text-xl font-bold px-2">🧠 MindJournal</span>
+        <span className="text-xl font-bold px-2">🧠 SoulScript</span>
       </div>
       <div className="flex-none space-x-2 px-4">
         <Link className="btn btn-ghost" to="/">

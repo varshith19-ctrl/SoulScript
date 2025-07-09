@@ -10,6 +10,7 @@ import {
   questionPrompts,
   readingPost,
   createPost,
+  readingUserPosts,
   deletePost
 } from "../controllers/JournalRoutes.controller.js";
 
@@ -33,6 +34,8 @@ router.get("/prompt", verifyToken, questionPrompts);
 
 //  Community Post Routes
 router.get("/readpost", verifyToken, readingPost);
+router.get("/readuserposts", verifyToken, readingUserPosts);
+
 router.post("/createpost", verifyToken, createPost);
 router.delete("/deletepost/:id", verifyToken, deletePost);
 

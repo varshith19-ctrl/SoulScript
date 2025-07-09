@@ -5,10 +5,12 @@ import { CommunityCard } from "../components/CommunityCard";
 
 export default function CommunityBoard({ setShowNavbar }) {
   const [posts, setPosts] = useState([]);
+  const [userPosts, setUserPosts] = useState([]);
+  const [showUserPosts, setShowUserPosts] = useState(false);
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Load posts on mount
+  // Load all posts on mount
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -19,19 +21,36 @@ export default function CommunityBoard({ setShowNavbar }) {
         );
         setPosts(res.data);
       } catch (error) {
-        alert("Failed to load community posts");
+        toast.error("Failed to load community posts");
       }
     };
 
     fetchPosts();
-    setShowNavbar(false); //  hide navbar on this page
-    return () => setShowNavbar(true); //  show navbar again when leaving
+    setShowNavbar(false);
+    return () => setShowNavbar(true);
   }, []);
+
+  // Load only the current user's posts
+  const fetchUserPosts = async () => {
+    try {
+      const res = await axios.get(
+        `${
+          import.meta.env.VITE_REACT_APP_BACKEND_BASE_URL
+        }/api/journal/readuserposts`
+      );
+      setUserPosts(res.data);
+    } catch (error) {
+      toast.error("Failed to load your posts");
+    }
+  };
 
   // Submit new post
   const submitPost = async (e) => {
     e.preventDefault();
-    if (!text.trim()) return;
+    if (!text.trim()) {
+      toast.error("empty input");
+      return;
+    }
     setLoading(true);
     try {
       const res = await axios.post(
@@ -41,19 +60,38 @@ export default function CommunityBoard({ setShowNavbar }) {
         { text }
       );
       setPosts([res.data, ...posts]);
+      if (showUserPosts) setUserPosts([res.data, ...userPosts]);
       setText("");
       toast.success("Post submitted successfully");
     } catch {
-      alert("Failed to submit post");
       toast.error("Something went wrong while submitting your post");
     } finally {
       setLoading(false);
     }
   };
+
+  // Delete post (for "Your Posts" mode)
+  const deletePost = async (postId) => {
+    try {
+      await axios.delete(
+        `${
+          import.meta.env.VITE_REACT_APP_BACKEND_BASE_URL
+        }/api/journal/deletepost/${postId}`
+      );
+      toast.success("Post deleted");
+      setPosts(posts.filter((p) => p._id !== postId));
+      setUserPosts(userPosts.filter((p) => p._id !== postId));
+    } catch {
+      toast.error("Failed to delete post");
+    }
+  };
+
+  const displayedPosts = showUserPosts ? userPosts : posts;
+
   return (
     <>
       <div className="max-w-xl mx-auto p-4">
-        <h2 className="text-3xl font-bold mb-6 bg-linear-to-r from-red-500 to-violet-500 bg-clip-text text-transparent">
+        <h2 className="text-3xl font-bold mb-6 bg-linear-to-r from-red-500 to-violet-500 bg-clip-text text-transparent animate-bounce">
           Anonymous Community Board
         </h2>
 
@@ -73,27 +111,43 @@ export default function CommunityBoard({ setShowNavbar }) {
           >
             {loading ? "Posting..." : "Post"}
           </button>
+
+          {posts.length !== 0 && (
+            <button
+              type="button"
+              className="btn btn-primary mt-2 ml-1.5 bg-[#4dab6c]"
+              onClick={() => {
+                const newState = !showUserPosts;
+                setShowUserPosts(newState);
+                if (newState===true) fetchUserPosts();
+              }}
+            >
+              {showUserPosts ? "All Posts" : "Your Posts"}
+            </button>
+          )}
         </form>
 
         <div className="space-y-4">
-          {posts.length === 0 && (
-            <p className="italic text-gray-500">No posts yet. Be the first!</p>
+          {displayedPosts.length === 0 && (
+            <p className="italic text-gray-500">
+              {showUserPosts
+                ? "You haven't posted anything yet."
+                : "No posts yet. Be the first!"}
+            </p>
           )}
         </div>
       </div>
+
       <div>
-        {posts.map((post) => (
-          <CommunityCard key={post._id} post={post} />
+        {displayedPosts.map((post) => (
+          <CommunityCard
+            key={post._id}
+            post={post}
+            showDelete={showUserPosts}
+            onDelete={() => deletePost(post._id)}
+          />
         ))}
       </div>
     </>
   );
 }
-
-// {notes.length > 0 && !isRateLimited && (
-//           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-//             {notes.map((note) => (
-//               <NoteCard key={note._id} note={note} setNotes={setNotes} />
-//             ))}
-//           </div>
-//         )}
