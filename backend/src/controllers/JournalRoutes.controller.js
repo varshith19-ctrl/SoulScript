@@ -34,18 +34,40 @@ export const readingEntry = async (req, res) => {
 
 export const registerUser = async (req, res) => {
   const { username, email, password } = req.body;
-  try {
-    const hashed = await bcrypt.hash(password, 10);
-    const user = await User.create({ username, email, password: hashed });
 
-    const token = jwt.sign({ id: user._id }, JWT_SECRET);
-    res.status(201).json({ token, user: { username, email } });
+  try {
+    if (!username || !email || !password) {
+      return res.status(400).json({ error: "All fields are required" });
+    }
+
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(409).json({ error: "Email already in use" });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = await User.create({ username, email, password: hashedPassword });
+
+    const token = jwt.sign({ id: newUser._id }, JWT_SECRET, { expiresIn: '7d' });
+
+    res.status(201).json({
+      message: "User registered successfully",
+      token,
+      user: {
+        id: newUser._id,
+        username: newUser.username,
+        email: newUser.email,
+      },
+    });
   } catch (err) {
-    res
-      .status(400)
-      .json({ error: "Registration failed", details: err.message });
+    console.log("Backend error ");
+    res.status(500).json({
+      error: "something went wrong while registering",
+      details: err.message,
+    });
   }
 };
+
 
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;

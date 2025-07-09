@@ -16,7 +16,7 @@ function Signup({ setIsAuthenticated }) {
       toast.success("Signup successful");
       navigate("/login");
     } catch (err) {
-      setError(err.response?.data?.error || "Signup failed");
+      
       toast.error("Something went wrong while signing up");
     }
   };
