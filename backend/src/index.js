@@ -18,10 +18,10 @@ app.use(cookieParser());
 
 //  Replace with  actual Vercel frontend URL
 app.use(cors({
-  origin: "http://localhost:5173", // <- Replace with real Vercel domain
+  origin: "https://mental-health-journal-pi.vercel.app", // <- Replace with real Vercel domain
   credentials: true,
 }));
-// "https://mental-health-journal-pi.vercel.app"||
+// https://mental-health-journal-pi.vercel.app||
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
