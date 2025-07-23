@@ -25,7 +25,7 @@ export default function JournalList({ entries, setEntries }) {
       {entries.map((entry) => (
         <div
           key={entry._id}
-          className="card bg-cover bg-linear-to-r from-[#f7eada] to-[#87ceeb] shadow-md p-4"
+          className="card bg-cover bg-linear-to-r from-[#f7eada] to-[#87ceeb] shadow-md p-4 glass"
         >
           <div className="flex justify-between items-center mb-2">
             <span className={`badge badge-${moodColor(entry.mood)} badge-lg`}>
