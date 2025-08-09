@@ -23,7 +23,7 @@ function Login({ setIsAuthenticated, setLoginPage }) {
     } catch (err) {
       const errorMessage = err.response?.data?.error || "An unexpected error occurred.";
       setError(errorMessage);
-      toast.error(errorMessage);
+      // toast.error(errorMessage);
     }
   };
 
